@@ -4,4 +4,4 @@ kind: Deployment
 metadata:
   name: fincad-deployment
 spec:
-  replicas: 10
+  replicas: 1

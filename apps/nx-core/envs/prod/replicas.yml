@@ -4,4 +4,4 @@ kind: Deployment
 metadata:
   name: nx-core-deployment
 spec:
-  replicas: 10
+  replicas: 1

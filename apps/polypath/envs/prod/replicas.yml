@@ -4,4 +4,4 @@ kind: Deployment
 metadata:
   name: polypath-deployment
 spec:
-  replicas: 10
+  replicas: 1
