@@ -1,6 +1,9 @@
 # Dev-specific overrides
 replicaCount: 1
 
+image:
+  tag: latest
+
 service:
   type: ClusterIP  # No expensive LoadBalancer in Dev
   ports:

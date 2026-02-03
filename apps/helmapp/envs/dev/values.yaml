@@ -1,6 +1,9 @@
 # Environment-specific overrides for Bitnami NGINX
 replicaCount: 1
 
+image:
+  tag: latest
+
 service:
   type: ClusterIP
   ports:
