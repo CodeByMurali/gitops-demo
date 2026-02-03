@@ -36,13 +36,10 @@ kubectl apply -f root-argocd-app.yml
 ## What Gets Deployed
 
 ### Spoke1 (Production):
-- cross-asset-prod-us
-- cross-asset-prod-eu
-- fincad-prod-us
-- fincad-prod-eu
-- nx-core-prod-us
-- nx-core-prod-eu
-- polypath-prod-us
+- cross-asset-prod
+- fincad-prod
+- nx-core-prod
+- polypath-prod
 
 ### Spoke2 (QA):
 - fincad-qa
@@ -68,10 +65,10 @@ kubectl get pods --all-namespaces
 
 ```bash
 # Only production apps (spoke1)
-kubectl apply -f appsets/my-prod-appset.yml
+kubectl apply -f appsets/oneview-prod-appset.yml
 
 # Only QA apps (spoke2)
-kubectl apply -f appsets/my-qa-appset.yml
+kubectl apply -f appsets/onview-qa-appset.yml
 ```
 
 ## Access ArgoCD UI

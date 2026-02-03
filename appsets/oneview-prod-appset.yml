@@ -11,8 +11,7 @@ spec:
       repoURL: https://github.com/CodeByMurali/gitops-demo.git
       revision: HEAD
       directories:
-      - path: apps/*/envs/prod-us
-      - path: apps/*/envs/prod-eu      
+      - path: apps/*/envs/prod      
   template:      
     metadata:
       # This defines the template section of an ArgoCD ApplicationSet
