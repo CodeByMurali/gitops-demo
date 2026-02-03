@@ -29,7 +29,7 @@ spec:
         targetRevision: HEAD
         path: '{{.path.path}}'
         kustomize:
-          enableHelm: true
+          buildOptions: --enable-helm
       
       # Destination cluster and namespace to deploy the application
       destination:

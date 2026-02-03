@@ -24,7 +24,7 @@ spec:
         targetRevision: HEAD
         path: '{{.path.path}}'
         kustomize:
-          enableHelm: true
+          buildOptions: --enable-helm
       destination:
         name: spoke2.us-east-1.eksctl.io
         namespace: '{{index .path.segments 1}}-{{index .path.segments 3}}'
