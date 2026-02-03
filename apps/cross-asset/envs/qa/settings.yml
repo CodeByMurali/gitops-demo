@@ -2,12 +2,12 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: crossasset-deployment
+  name: cross-asset-deployment
 spec:
   template:
     spec:
       containers:
-      - name: crossasset-simple
+      - name: cross-asset
         env:
         - name: UI_THEME
           value: "dark"
