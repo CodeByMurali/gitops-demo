@@ -1,0 +1,20 @@
+# Environment-specific overrides for Bitnami NGINX
+replicaCount: 1
+
+service:
+  type: ClusterIP
+  ports:
+    http: 80
+
+resources:
+  requests:
+    cpu: 250m
+    memory: 256Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
+autoscaling:
+  enabled: true
+  minReplicas: 3
+  maxReplicas: 10
