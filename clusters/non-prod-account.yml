@@ -13,6 +13,7 @@ spec:
       directories:
       - path: apps/*/envs/dev
       - path: apps/*/envs/qa
+      - path: apps/*/envs/stage
   template:      
     metadata:
       name: '{{index .path.segments 1}}-{{index .path.segments 3}}'     
