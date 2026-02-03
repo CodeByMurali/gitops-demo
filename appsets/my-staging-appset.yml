@@ -8,7 +8,7 @@ spec:
   goTemplateOptions: ["missingkey=error"]
   generators:
   - git:
-      repoURL: https://github.com/kostis-codefresh/many-appsets-demo.git
+      repoURL: https://github.com/CodeByMurali/gitops-demo.git
       revision: HEAD
       directories:
       - path: apps/*/envs/staging    
@@ -21,7 +21,7 @@ spec:
 
       # Source of the application manifests
       source:
-        repoURL: https://github.com/kostis-codefresh/many-appsets-demo.git
+        repoURL: https://github.com/CodeByMurali/gitops-demo.git
         targetRevision: HEAD
         path: '{{.path.path}}'
       
