@@ -1,0 +1,23 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kynex-deployment
+  annotations:
+    codefresh.io/app: kynex
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: kynex
+  template:
+    metadata:
+      labels:
+        app: kynex
+    spec:
+      containers:
+      - name: kynex
+        imagePullPolicy: Always
+        image: docker.io/kostiscodefresh/simple-env-app:1.0
+        ports:
+        - containerPort: 8080

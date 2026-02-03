@@ -1,0 +1,23 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: polypath-deployment
+  annotations:
+    codefresh.io/app: polypath
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: polypath
+  template:
+    metadata:
+      labels:
+        app: polypath
+    spec:
+      containers:
+      - name: polypath
+        imagePullPolicy: Always
+        image: docker.io/kostiscodefresh/simple-env-app:1.0
+        ports:
+        - containerPort: 8080

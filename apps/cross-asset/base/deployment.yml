@@ -1,0 +1,23 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cross-asset-deployment
+  annotations:
+    codefresh.io/app: cross-asset
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: cross-asset
+  template:
+    metadata:
+      labels:
+        app: cross-asset
+    spec:
+      containers:
+      - name: cross-asset
+        imagePullPolicy: Always
+        image: docker.io/kostiscodefresh/simple-env-app:1.0
+        ports:
+        - containerPort: 8080

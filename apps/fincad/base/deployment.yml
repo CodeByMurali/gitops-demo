@@ -1,0 +1,23 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fincad-deployment
+  annotations:
+    codefresh.io/app: fincad
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: fincad
+  template:
+    metadata:
+      labels:
+        app: fincad
+    spec:
+      containers:
+      - name: fincad
+        imagePullPolicy: Always
+        image: docker.io/kostiscodefresh/simple-env-app:1.0
+        ports:
+        - containerPort: 8080
