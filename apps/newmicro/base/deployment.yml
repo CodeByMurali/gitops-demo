@@ -2,21 +2,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: newnicro
+  name: newmicro-deployment
   annotations:
-    codefresh.io/app: newnicro
+    codefresh.io/app: newmicro
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: newnicro
+      app: newmicro
   template:
     metadata:
       labels:
-        app: newnicro
+        app: newmicro
     spec:
       containers:
-      - name: newnicro
+      - name: newmicro
         imagePullPolicy: Always
         image: docker.io/kostiscodefresh/simple-env-app:1.0
         ports:

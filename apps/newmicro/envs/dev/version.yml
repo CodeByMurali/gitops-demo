@@ -2,10 +2,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: newnicro-deployment
+  name: newmicro-deployment
 spec:
   template:
     spec:
       containers:
-      - name: newnicro
+      - name: newmicro
         image: docker.io/kostiscodefresh/simple-env-app:2.0

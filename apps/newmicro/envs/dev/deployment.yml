@@ -2,15 +2,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: newnicro-deployment
+  name: newmicro-deployment
 spec:
   template:
     spec:
       containers:
-      - name: newnicro
+      - name: newmicro
         env:
         - name: ENV
-          value: "qa"
+          value: "dev"
         - name: GPU_ENABLED
           value: "1"
       
