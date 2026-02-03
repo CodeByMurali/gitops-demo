@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: oneview-prod-appset
+  name: prod-account
   namespace: argocd
 spec:
   goTemplate: true

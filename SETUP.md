@@ -3,7 +3,7 @@
 ## Your Cluster Setup
 - **Hub**: hub.us-east-1.eksctl.io (ArgoCD runs here)
 - **Spoke1**: spoke1.us-east-1.eksctl.io (Production apps)
-- **Spoke2**: spoke2.us-east-1.eksctl.io (QA apps)
+- **Spoke2**: spoke2.us-east-1.eksctl.io (Dev & QA apps)
 
 ## Prerequisites
 - ArgoCD installed on hub cluster
@@ -19,7 +19,7 @@ kubectl config use-context mrajendran@numerix.com@hub.us-east-1.eksctl.io
 # Add spoke1 (Production)
 argocd cluster add mrajendran@numerix.com@spoke1.us-east-1.eksctl.io --name spoke1.us-east-1.eksctl.io
 
-# Add spoke2 (QA)
+# Add spoke2 (Dev & QA)
 argocd cluster add mrajendran@numerix.com@spoke2.us-east-1.eksctl.io --name spoke2.us-east-1.eksctl.io
 
 # Verify clusters
@@ -41,10 +41,15 @@ kubectl apply -f root-argocd-app.yml
 - nx-core-prod
 - polypath-prod
 
+### Spoke2 (Dev):
+- fincad-dev
+- kynex-dev
+- polypath-dev
+
 ### Spoke2 (QA):
+- cross-asset-qa
 - fincad-qa
-- kynex-qa
-- polypath-qa
+- nx-core-qa
 
 ## Step 3: Verify Deployment
 
@@ -65,10 +70,10 @@ kubectl get pods --all-namespaces
 
 ```bash
 # Only production apps (spoke1)
-kubectl apply -f appsets/oneview-prod-appset.yml
+kubectl apply -f clusters/prod-account.yml
 
-# Only QA apps (spoke2)
-kubectl apply -f appsets/onview-qa-appset.yml
+# Only dev & qa apps (spoke2)
+kubectl apply -f clusters/non-prod-account.yml
 ```
 
 ## Access ArgoCD UI
