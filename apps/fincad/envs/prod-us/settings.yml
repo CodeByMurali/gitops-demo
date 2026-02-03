@@ -2,12 +2,12 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: simple-deployment
+  name: fincad-deployment
 spec:
   template:
     spec:
       containers:
-      - name: webserver-simple
+      - name: fincad
         env:
         - name: UI_THEME
           value: "dark"

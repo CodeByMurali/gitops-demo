@@ -32,11 +32,7 @@ spec:
       
       # Destination cluster and namespace to deploy the application
       destination:
-        server: https://kubernetes.default.svc
-        # This line dynamically generates the namespace name using Go templating
-        # It combines the 2nd segment (app name) and 4th segment (environment) from the directory path
-        # For example, if the path is "apps/myapp/envs/prod-us", this creates namespace "myapp-prod-us"
-        # The segments are zero-indexed: [0]="apps", [1]="myapp", [2]="envs", [3]="prod-us"
+        name: spoke1.us-east-1.eksctl.io
         namespace: '{{index .path.segments 1}}-{{index .path.segments 3}}'
 
       # Sync policy

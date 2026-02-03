@@ -2,10 +2,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: simple-deployment
+  name: polypath-deployment
 spec:
   template:
     spec:
       containers:
-      - name: webserver-simple
+      - name: polypath
         image: docker.io/kostiscodefresh/simple-env-app:2.0

@@ -2,10 +2,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: simple-deployment
+  name: kynex-deployment
 spec:
   template:
     spec:
       containers:
-      - name: webserver-simple
+      - name: kynex
         image: docker.io/kostiscodefresh/simple-env-app:1.0

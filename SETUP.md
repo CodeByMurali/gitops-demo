@@ -1,103 +1,93 @@
-# ArgoCD Setup Guide
+# ArgoCD Multi-Cluster Setup Guide
+
+## Your Cluster Setup
+- **Hub**: hub.us-east-1.eksctl.io (ArgoCD runs here)
+- **Spoke1**: spoke1.us-east-1.eksctl.io (Production apps)
+- **Spoke2**: spoke2.us-east-1.eksctl.io (QA apps)
 
 ## Prerequisites
-- ArgoCD installed on your hub cluster
-- kubectl configured to access your cluster
-- GitHub account
+- ArgoCD installed on hub cluster
+- kubectl configured with all cluster contexts
+- GitHub repo: https://github.com/CodeByMurali/gitops-demo
 
-## Step 1: Push to GitHub
+## Step 1: Add Spoke Clusters to ArgoCD
 
 ```bash
-cd C:\Users\MuraliRajendran\workspace\argocd\gitops-demo
+# Switch to hub cluster
+kubectl config use-context mrajendran@numerix.com@hub.us-east-1.eksctl.io
 
-# Initialize git
-git init
-git add .
-git commit -m "Initial commit: OneView GitOps"
+# Add spoke1 (Production)
+argocd cluster add mrajendran@numerix.com@spoke1.us-east-1.eksctl.io --name spoke1.us-east-1.eksctl.io
 
-# Create a new repo on GitHub, then:
-git remote add origin https://github.com/CodeByMurali/gitops-demo.git
-git branch -M main
-git push -u origin main
+# Add spoke2 (QA)
+argocd cluster add mrajendran@numerix.com@spoke2.us-east-1.eksctl.io --name spoke2.us-east-1.eksctl.io
+
+# Verify clusters
+argocd cluster list
 ```
 
-## Step 2: Update Repository URLs
-
-Replace `YOUR_USERNAME` with your actual GitHub username in these files:
-- `root-argocd-app.yml`
-- `appsets/my-prod-appset.yml`
-- `appsets/my-qa-appset.yml`
-- `appsets/my-staging-appset.yml`
-
-## Step 3: Deploy to ArgoCD
-
-### Option A: Deploy All Environments (Prod, QA, Staging)
+## Step 2: Deploy Applications
 
 ```bash
+# Deploy all apps to both clusters
 kubectl apply -f root-argocd-app.yml
 ```
 
-This creates:
-- **Prod apps**: cross-asset-prod-us, cross-asset-prod-eu, fincad-prod-us, fincad-prod-eu, nx-core-prod-us, nx-core-prod-eu, polypath-prod-us
-- **QA apps**: fincad-qa, kynex-qa, polypath-qa
-- **Staging apps**: fincad-staging, polypath-staging
+## What Gets Deployed
 
-### Option B: Deploy Specific Environment
+### Spoke1 (Production):
+- cross-asset-prod-us
+- cross-asset-prod-eu
+- fincad-prod-us
+- fincad-prod-eu
+- nx-core-prod-us
+- nx-core-prod-eu
+- polypath-prod-us
 
-```bash
-# Only production
-kubectl apply -f appsets/my-prod-appset.yml
+### Spoke2 (QA):
+- fincad-qa
+- kynex-qa
+- polypath-qa
 
-# Only QA
-kubectl apply -f appsets/my-qa-appset.yml
-
-# Only staging
-kubectl apply -f appsets/my-staging-appset.yml
-```
-
-## Step 4: Verify Deployment
+## Step 3: Verify Deployment
 
 ```bash
-# Check ArgoCD applications
+# Check apps in ArgoCD
 kubectl get applications -n argocd
 
-# Access ArgoCD UI
+# Check apps on spoke1
+kubectl config use-context mrajendran@numerix.com@spoke1.us-east-1.eksctl.io
+kubectl get pods --all-namespaces
+
+# Check apps on spoke2
+kubectl config use-context mrajendran@numerix.com@spoke2.us-east-1.eksctl.io
+kubectl get pods --all-namespaces
+```
+
+## Alternative: Deploy Specific Environment
+
+```bash
+# Only production apps (spoke1)
+kubectl apply -f appsets/my-prod-appset.yml
+
+# Only QA apps (spoke2)
+kubectl apply -f appsets/my-qa-appset.yml
+```
+
+## Access ArgoCD UI
+
+```bash
 kubectl port-forward svc/argocd-server -n argocd 8080:443
 
 # Get admin password
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
 ```
 
-Open browser: https://localhost:8080
-- Username: `admin`
-- Password: (from command above)
-
-## Apps Deployed by Environment
-
-| App | prod-us | prod-eu | qa | staging |
-|-----|---------|---------|----|---------| 
-| cross-asset | ✅ | ✅ | ❌ | ❌ |
-| fincad | ✅ | ✅ | ✅ | ✅ |
-| kynex | ❌ | ❌ | ✅ | ❌ |
-| nx-core | ✅ | ✅ | ❌ | ❌ |
-| polypath | ✅ | ❌ | ✅ | ✅ |
+Open: https://localhost:8080
 
 ## GitOps Workflow
 
 1. Make changes to manifests in `apps/` folder
 2. Commit and push to GitHub
-3. ArgoCD automatically syncs changes (automated sync enabled)
-4. Manual changes in cluster are reverted (selfHeal enabled)
-
-## Troubleshooting
-
-```bash
-# Check app status
-argocd app get <app-name>
-
-# Sync manually
-argocd app sync <app-name>
-
-# View logs
-kubectl logs -n argocd deployment/argocd-application-controller
-```
+3. ArgoCD automatically syncs changes
+4. Manual cluster changes are reverted (selfHeal enabled)
