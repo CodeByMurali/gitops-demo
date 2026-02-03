@@ -28,6 +28,8 @@ spec:
         repoURL: https://github.com/CodeByMurali/gitops-demo.git
         targetRevision: HEAD
         path: '{{.path.path}}'
+        kustomize:
+          enableHelm: true
       
       # Destination cluster and namespace to deploy the application
       destination:
