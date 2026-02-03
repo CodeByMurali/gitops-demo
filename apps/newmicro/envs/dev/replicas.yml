@@ -2,6 +2,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: newnicro-deployment
+  name: newmicro-deployment
 spec:
   replicas: 1
