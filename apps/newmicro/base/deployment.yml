@@ -1,0 +1,23 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: newnicro
+  annotations:
+    codefresh.io/app: newnicro
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: newnicro
+  template:
+    metadata:
+      labels:
+        app: newnicro
+    spec:
+      containers:
+      - name: newnicro
+        imagePullPolicy: Always
+        image: docker.io/kostiscodefresh/simple-env-app:1.0
+        ports:
+        - containerPort: 8080

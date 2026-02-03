@@ -1,0 +1,16 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: newnicro-deployment
+spec:
+  template:
+    spec:
+      containers:
+      - name: newnicro
+        env:
+        - name: ENV
+          value: "qa"
+        - name: GPU_ENABLED
+          value: "1"
+      

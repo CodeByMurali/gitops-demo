@@ -1,0 +1,7 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: newnicro-deployment
+spec:
+  replicas: 1
