@@ -14,7 +14,7 @@ spec:
       repoURL: https://github.com/CodeByMurali/CDUsingArgoCD.git
       revision: master
       directories:
-      - path: adb/apps/*/envs/dev
+      - path: adb/apps/*/envs/dev # nonprod/jefferis/poc/apps/
       - path: adb/apps/*/envs/qa
       - path: adb/apps/*/envs/stage
   template:      
