@@ -1,0 +1,40 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: ael-prod
+  namespace: argocd
+  labels:
+    client: ael
+    environment: prod
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+  - git:
+      repoURL: https://github.com/CodeByMurali/CDUsingArgoCD.git
+      revision: master
+      directories:
+      - path: ael/apps/*/envs/prod      
+  template:      
+    metadata:
+      name: 'ael-{{index .path.segments 2}}-{{index .path.segments 4}}'
+      labels:
+        client: ael
+        service: '{{index .path.segments 2}}'
+        environment: '{{index .path.segments 4}}'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/CodeByMurali/CDUsingArgoCD.git
+        targetRevision: master
+        path: '{{.path.path}}'
+      destination:
+        name: spoke1.us-east-1.eksctl.io
+        namespace: '{{index .path.segments 4}}'
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
+          - PrunePropagationPolicy=foreground
+        automated:
+          prune: true
+          selfHeal: true
