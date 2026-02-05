@@ -1,0 +1,40 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: jeffries-dev
+  namespace: argocd
+  labels:
+    client: jeffries
+    environment: dev
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+  - git:
+      repoURL: https://github.com/CodeByMurali/CDUsingArgoCD.git
+      revision: sep-custom-folder
+      directories:
+      - path: apps/*/envs/dev      
+  template:      
+    metadata:
+      name: 'jeffries-{{index .path.segments 1}}-{{index .path.segments 3}}'
+      labels:
+        client: jeffries
+        service: '{{index .path.segments 1}}'
+        environment: '{{index .path.segments 3}}'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/CodeByMurali/CDUsingArgoCD.git
+        targetRevision: sep-custom-folder
+        path: '{{.path.path}}'
+      destination:
+        name: spoke1.us-east-1.eksctl.io
+        namespace: '{{index .path.segments 3}}'
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
+          - PrunePropagationPolicy=foreground
+        automated:
+          prune: true
+          selfHeal: true
