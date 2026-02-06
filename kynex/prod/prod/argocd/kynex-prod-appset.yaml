@@ -1,11 +1,11 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: jeffries-dev
+  name: kynex-prod
   namespace: argocd
   labels:
-    client: jeffries
-    environment: dev
+    client: kynex
+    environment: prod
 spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
@@ -14,23 +14,23 @@ spec:
       repoURL: https://github.com/CodeByMurali/CDUsingArgoCD.git
       revision: sep-custom-folder
       directories:
-      - path: apps/*/envs/dev      
+      - path: argocd/apps/*/envs/prod      
   template:      
     metadata:
-      name: 'jeffries-{{index .path.segments 1}}-{{index .path.segments 3}}'
+      name: 'kynex-{{index .path.segments 2}}-{{index .path.segments 4}}'
       labels:
-        client: jeffries
-        service: '{{index .path.segments 1}}'
-        environment: '{{index .path.segments 3}}'
+        client: kynex
+        service: '{{index .path.segments 2}}'
+        environment: '{{index .path.segments 4}}'
     spec:
-      project: default
+      project: kynex-prod
       source:
         repoURL: https://github.com/CodeByMurali/CDUsingArgoCD.git
         targetRevision: sep-custom-folder
         path: '{{.path.path}}'
       destination:
         name: spoke1.us-east-1.eksctl.io
-        namespace: '{{index .path.segments 3}}'
+        namespace: '{{index .path.segments 4}}'
       syncPolicy:
         syncOptions:
           - CreateNamespace=true

@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: ocbc-prod
+  namespace: argocd
+spec:
+  description: OCBC PROD environment only
+  
+  sourceRepos:
+  - https://github.com/CodeByMurali/CDUsingArgoCD.git
+  - https://github.com/CodeByMurali/gitops-demo.git
+  
+  destinations:
+  - namespace: 'prod'
+    name: spoke1.us-east-1.eksctl.io
+  
+  clusterResourceWhitelist:
+  - group: '*'
+    kind: '*'
+  
+  namespaceResourceWhitelist:
+  - group: '*'
+    kind: '*'

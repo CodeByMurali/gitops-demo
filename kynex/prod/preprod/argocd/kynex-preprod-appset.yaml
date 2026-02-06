@@ -1,32 +1,32 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: adb-prod
+  name: kynex-preprod
   namespace: argocd
   labels:
-    client: adb
-    environment: prod
+    client: kynex
+    environment: preprod
 spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
   generators:
   - git:
       repoURL: https://github.com/CodeByMurali/CDUsingArgoCD.git
-      revision: master
+      revision: sep-custom-folder
       directories:
-      - path: adb/apps/*/envs/prod      
+      - path: argocd/apps/*/envs/preprod      
   template:      
     metadata:
-      name: 'adb-{{index .path.segments 2}}-{{index .path.segments 4}}'
+      name: 'kynex-{{index .path.segments 2}}-{{index .path.segments 4}}'
       labels:
-        client: adb
+        client: kynex
         service: '{{index .path.segments 2}}'
         environment: '{{index .path.segments 4}}'
     spec:
-      project: default
+      project: kynex-preprod
       source:
         repoURL: https://github.com/CodeByMurali/CDUsingArgoCD.git
-        targetRevision: master
+        targetRevision: sep-custom-folder
         path: '{{.path.path}}'
       destination:
         name: spoke1.us-east-1.eksctl.io

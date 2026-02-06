@@ -1,0 +1,40 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: kynex-dev
+  namespace: argocd
+  labels:
+    client: kynex
+    environment: dev
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+  - git:
+      repoURL: https://github.com/CodeByMurali/CDUsingArgoCD.git
+      revision: sep-custom-folder
+      directories:
+      - path: argocd/apps/*/envs/dev      
+  template:      
+    metadata:
+      name: 'kynex-{{index .path.segments 2}}-{{index .path.segments 4}}'
+      labels:
+        client: kynex
+        service: '{{index .path.segments 2}}'
+        environment: '{{index .path.segments 4}}'
+    spec:
+      project: kynex-dev
+      source:
+        repoURL: https://github.com/CodeByMurali/CDUsingArgoCD.git
+        targetRevision: sep-custom-folder
+        path: '{{.path.path}}'
+      destination:
+        name: spoke2.us-east-1.eksctl.io
+        namespace: '{{index .path.segments 4}}'
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
+          - PrunePropagationPolicy=foreground
+        automated:
+          prune: true
+          selfHeal: true
