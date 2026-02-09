@@ -33,7 +33,7 @@ spec:
         targetRevision: scalable
         path: '{{.path.path}}'
         kustomize:
-          enableHelm: true
+          buildOptions: "--enable-helm"
       destination:
         name: PLACEHOLDER_CLUSTER
         namespace: PLACEHOLDER_NAMESPACE
