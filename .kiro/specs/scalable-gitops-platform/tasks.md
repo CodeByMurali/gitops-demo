@@ -77,7 +77,7 @@ Implementation tasks for transforming the gitops-demo repository into a producti
 - [x] 2.3.5 Test Kustomize build locally
 
 ### 2.4 Test Kynex Prod Bootstrap
-- [ ] 2.4.1 Apply `bootstrap/kynex-prod-bootstrap.yaml` to hub cluster
+- [x] 2.4.1 Apply `bootstrap/kynex-prod-bootstrap.yaml` to hub cluster
 - [ ] 2.4.2 Verify bootstrap ApplicationSet is created
 - [ ] 2.4.3 Verify ApplicationSets `kynex-preprod` and `kynex-prod` are created
 - [ ] 2.4.4 Verify AppProjects are created with restricted permissions
@@ -88,30 +88,30 @@ Implementation tasks for transforming the gitops-demo repository into a producti
 ## Phase 3: OneView Nonprod
 
 ### 3.1 Fix Naming Inconsistency
-- [ ] 3.1.1 Rename `oneview/prod/jeffries/` to `oneview/prod/jefferies/`
-- [ ] 3.1.2 Update any references to "jeffries" in existing files
+- [x] 3.1.1 Rename `oneview/prod/jeffries/` to `oneview/prod/jefferies/`
+- [x] 3.1.2 Update any references to "jeffries" in existing files
 
 ### 3.2 Create OneView Nonprod Base
-- [ ] 3.2.1 Create `oneview/nonprod/base/` folder
-- [ ] 3.2.2 Create `oneview/nonprod/base/applicationset.yaml` with tenant support
-- [ ] 3.2.3 Create `oneview/nonprod/base/appproject.yaml` with restricted permissions
-- [ ] 3.2.4 Create `oneview/nonprod/base/kustomization.yaml`
+- [x] 3.2.1 Create `oneview/nonprod/base/` folder
+- [x] 3.2.2 Create `oneview/nonprod/base/applicationset.yaml` with tenant support
+- [x] 3.2.3 Create `oneview/nonprod/base/appproject.yaml` with restricted permissions
+- [x] 3.2.4 Create `oneview/nonprod/base/kustomization.yaml`
 
 ### 3.3 Create Jefferies Nonprod Overlays
-- [ ] 3.3.1 Create `oneview/nonprod/jefferies/poc/argocd/kustomization.yaml`
-- [ ] 3.3.2 Configure cluster: `spoke2.us-east-1.eksctl.io`, namespace: `poc`
-- [ ] 3.3.3 Create `oneview/nonprod/jefferies/dev/argocd/kustomization.yaml`
-- [ ] 3.3.4 Configure cluster: `spoke2.us-east-1.eksctl.io`, namespace: `dev`
-- [ ] 3.3.5 Create `oneview/nonprod/jefferies/sit/argocd/kustomization.yaml`
-- [ ] 3.3.6 Configure cluster: `spoke2.us-east-1.eksctl.io`, namespace: `sit`
-- [ ] 3.3.7 Add AWS account ID annotation to all Jefferies overlays
+- [x] 3.3.1 Create `oneview/nonprod/jefferies/poc/argocd/kustomization.yaml`
+- [x] 3.3.2 Configure cluster: `spoke2.us-east-1.eksctl.io`, namespace: `poc`
+- [x] 3.3.3 Create `oneview/nonprod/jefferies/dev/argocd/kustomization.yaml`
+- [x] 3.3.4 Configure cluster: `spoke2.us-east-1.eksctl.io`, namespace: `dev`
+- [x] 3.3.5 Create `oneview/nonprod/jefferies/sit/argocd/kustomization.yaml`
+- [x] 3.3.6 Configure cluster: `spoke2.us-east-1.eksctl.io`, namespace: `sit`
+- [x] 3.3.7 Add AWS account ID annotation to all Jefferies overlays
 
 ### 3.4 Create OCBC Nonprod Overlays
-- [ ] 3.4.1 Create `oneview/nonprod/ocbc/dev/argocd/kustomization.yaml`
-- [ ] 3.4.2 Configure cluster: `spoke2.us-east-1.eksctl.io`, namespace: `dev`
-- [ ] 3.4.3 Create `oneview/nonprod/ocbc/sit/argocd/kustomization.yaml`
-- [ ] 3.4.4 Configure cluster: `spoke2.us-east-1.eksctl.io`, namespace: `sit`
-- [ ] 3.4.5 Add AWS account ID annotation to all OCBC overlays
+- [x] 3.4.1 Create `oneview/nonprod/ocbc/dev/argocd/kustomization.yaml`
+- [x] 3.4.2 Configure cluster: `spoke2.us-east-1.eksctl.io`, namespace: `dev`
+- [x] 3.4.3 Create `oneview/nonprod/ocbc/sit/argocd/kustomization.yaml`
+- [x] 3.4.4 Configure cluster: `spoke2.us-east-1.eksctl.io`, namespace: `sit`
+- [x] 3.4.5 Add AWS account ID annotation to all OCBC overlays
 
 ### 3.5 Test OneView Nonprod Bootstrap
 - [ ] 3.5.1 Apply `bootstrap/oneview-nonprod-bootstrap.yaml` to hub cluster

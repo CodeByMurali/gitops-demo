@@ -1,0 +1,70 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- ../../../base
+
+commonLabels:
+  tenant: jefferies
+  environment: sit
+
+patches:
+- target:
+    kind: ApplicationSet
+  patch: |-
+    - op: replace
+      path: /metadata/name
+      value: jefferies-sit
+    - op: replace
+      path: /metadata/labels/tenant
+      value: jefferies
+    - op: replace
+      path: /metadata/labels/environment
+      value: sit
+    - op: replace
+      path: /spec/template/metadata/labels/tenant
+      value: jefferies
+    - op: replace
+      path: /spec/template/metadata/labels/environment
+      value: sit
+    - op: replace
+      path: /spec/template/metadata/name
+      value: jefferies-{{index .path.segments 2}}-sit
+    - op: replace
+      path: /spec/template/spec/project
+      value: jefferies-sit
+    - op: replace
+      path: /spec/template/spec/destination/name
+      value: spoke2.us-east-1.eksctl.io
+    - op: replace
+      path: /spec/template/spec/destination/namespace
+      value: sit
+    - op: replace
+      path: /spec/generators/0/git/directories/0/path
+      value: argocd/apps/*/envs/sit
+
+- target:
+    kind: AppProject
+  patch: |-
+    - op: replace
+      path: /metadata/name
+      value: jefferies-sit
+    - op: replace
+      path: /metadata/labels/tenant
+      value: jefferies
+    - op: replace
+      path: /metadata/labels/environment
+      value: sit
+    - op: replace
+      path: /spec/description
+      value: "OneView jefferies sit environment"
+    - op: replace
+      path: /spec/destinations/0/name
+      value: spoke2.us-east-1.eksctl.io
+    - op: replace
+      path: /spec/destinations/0/namespace
+      value: sit
+    - op: add
+      path: /metadata/annotations
+      value:
+        aws-account-id: "123456789012"

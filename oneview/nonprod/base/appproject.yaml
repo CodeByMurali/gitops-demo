@@ -1,0 +1,44 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: PLACEHOLDER_PROJECT
+  namespace: argocd
+  labels:
+    deployment-model: oneview
+    realm: nonprod
+    tenant: PLACEHOLDER_TENANT
+    environment: PLACEHOLDER_ENVIRONMENT
+spec:
+  description: "OneView PLACEHOLDER_TENANT PLACEHOLDER_ENVIRONMENT environment"
+  
+  sourceRepos:
+  - https://github.com/CodeByMurali/CDUsingArgoCD.git
+  - https://github.com/CodeByMurali/gitops-demo.git
+  
+  destinations:
+  - namespace: 'PLACEHOLDER_NAMESPACE'
+    name: PLACEHOLDER_CLUSTER
+  
+  clusterResourceWhitelist: []
+  
+  namespaceResourceWhitelist:
+  - group: ''
+    kind: ConfigMap
+  - group: ''
+    kind: Secret
+  - group: ''
+    kind: Service
+  - group: 'apps'
+    kind: Deployment
+  - group: 'apps'
+    kind: StatefulSet
+  - group: 'apps'
+    kind: DaemonSet
+  - group: 'batch'
+    kind: Job
+  - group: 'batch'
+    kind: CronJob
+  - group: 'networking.k8s.io'
+    kind: Ingress
+  - group: 'autoscaling'
+    kind: HorizontalPodAutoscaler
