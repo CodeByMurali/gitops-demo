@@ -1,0 +1,50 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: PLACEHOLDER_NAME
+  namespace: argocd
+  labels:
+    deployment-model: kynex
+    realm: nonprod
+    environment: PLACEHOLDER_ENVIRONMENT
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+  - git:
+      repoURL: https://github.com/CodeByMurali/CDUsingArgoCD.git
+      revision: scalable
+      directories:
+      - path: argocd/apps/*/envs/PLACEHOLDER_ENVIRONMENT
+  template:
+    metadata:
+      name: 'kynex-{{index .path.segments 2}}-PLACEHOLDER_ENVIRONMENT'
+      labels:
+        deployment-model: kynex
+        realm: nonprod
+        environment: PLACEHOLDER_ENVIRONMENT
+        service: '{{index .path.segments 2}}'
+    spec:
+      project: PLACEHOLDER_PROJECT
+      source:
+        repoURL: https://github.com/CodeByMurali/CDUsingArgoCD.git
+        targetRevision: scalable
+        path: '{{.path.path}}'
+        kustomize:
+          enableHelm: true
+      destination:
+        name: PLACEHOLDER_CLUSTER
+        namespace: PLACEHOLDER_NAMESPACE
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+          - PrunePropagationPolicy=foreground
+        retry:
+          limit: 3
+          backoff:
+            duration: 5s
+            factor: 2
+            maxDuration: 3m

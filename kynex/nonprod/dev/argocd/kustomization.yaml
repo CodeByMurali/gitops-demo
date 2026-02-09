@@ -1,0 +1,56 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- ../../base
+
+commonLabels:
+  environment: dev
+
+patches:
+- target:
+    kind: ApplicationSet
+  patch: |-
+    - op: replace
+      path: /metadata/name
+      value: kynex-dev
+    - op: replace
+      path: /metadata/labels/environment
+      value: dev
+    - op: replace
+      path: /spec/template/metadata/labels/environment
+      value: dev
+    - op: replace
+      path: /spec/template/metadata/name
+      value: kynex-{{index .path.segments 2}}-dev
+    - op: replace
+      path: /spec/template/spec/project
+      value: kynex-dev
+    - op: replace
+      path: /spec/template/spec/destination/name
+      value: spoke2.us-east-1.eksctl.io
+    - op: replace
+      path: /spec/template/spec/destination/namespace
+      value: dev
+    - op: replace
+      path: /spec/generators/0/git/directories/0/path
+      value: argocd/apps/*/envs/dev
+
+- target:
+    kind: AppProject
+  patch: |-
+    - op: replace
+      path: /metadata/name
+      value: kynex-dev
+    - op: replace
+      path: /metadata/labels/environment
+      value: dev
+    - op: replace
+      path: /spec/description
+      value: "Kynex dev environment"
+    - op: replace
+      path: /spec/destinations/0/name
+      value: spoke2.us-east-1.eksctl.io
+    - op: replace
+      path: /spec/destinations/0/namespace
+      value: dev

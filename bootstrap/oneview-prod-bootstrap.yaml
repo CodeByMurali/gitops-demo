@@ -1,0 +1,47 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: oneview-prod-bootstrap
+  namespace: argocd
+  labels:
+    deployment-model: oneview
+    realm: prod
+    bootstrap: "true"
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+  - git:
+      repoURL: https://github.com/CodeByMurali/gitops-demo.git
+      revision: scalable
+      directories:
+      - path: oneview/prod/*/*/argocd
+      - path: oneview/prod/platform/*/argocd
+  template:
+    metadata:
+      name: 'bootstrap-{{index .path.segments 0}}-{{index .path.segments 1}}-{{index .path.segments 2}}-{{index .path.segments 3}}'
+      labels:
+        deployment-model: oneview
+        realm: prod
+        bootstrap: "true"
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/CodeByMurali/gitops-demo.git
+        targetRevision: scalable
+        path: '{{.path.path}}'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: argocd
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+        retry:
+          limit: 3
+          backoff:
+            duration: 5s
+            factor: 2
+            maxDuration: 3m
