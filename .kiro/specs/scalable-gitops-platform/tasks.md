@@ -43,38 +43,38 @@ Implementation tasks for transforming the gitops-demo repository into a producti
 - [x] 1.5.5 Test Kustomize build locally
 
 ### 1.6 Test Kynex Nonprod Bootstrap
-- [ ] 1.6.1 Apply `bootstrap/kynex-nonprod-bootstrap.yaml` to hub cluster
-- [ ] 1.6.2 Verify bootstrap ApplicationSet is created
-- [ ] 1.6.3 Verify bootstrap discovers dev and sit folders
-- [ ] 1.6.4 Verify ApplicationSets `kynex-dev` and `kynex-sit` are created
-- [ ] 1.6.5 Verify AppProjects `kynex-dev` and `kynex-sit` are created
-- [ ] 1.6.6 Verify ApplicationSets discover services in CDUsingArgoCD
-- [ ] 1.6.7 Verify Applications are created (e.g., `kynex-marketrisk-dev`)
-- [ ] 1.6.8 Verify services are deployed to spoke2 cluster
+- [x] 1.6.1 Apply `bootstrap/kynex-nonprod-bootstrap.yaml` to hub cluster
+- [x] 1.6.2 Verify bootstrap ApplicationSet is created
+- [x] 1.6.3 Verify bootstrap discovers dev and sit folders
+- [x] 1.6.4 Verify ApplicationSets `kynex-dev` and `kynex-sit` are created
+- [x] 1.6.5 Verify AppProjects `kynex-dev` and `kynex-sit` are created
+- [x] 1.6.6 Verify ApplicationSets discover services in CDUsingArgoCD
+- [x] 1.6.7 Verify Applications are created (e.g., `kynex-marketrisk-dev`)
+- [x] 1.6.8 Verify services are deployed to spoke2 cluster
 
 ---
 
 ## Phase 2: Kynex Prod
 
 ### 2.1 Create Kynex Prod Base
-- [ ] 2.1.1 Create `kynex/prod/base/` folder
-- [ ] 2.1.2 Create `kynex/prod/base/applicationset.yaml` (copy from nonprod, adjust labels)
-- [ ] 2.1.3 Create `kynex/prod/base/appproject.yaml` (copy from nonprod, adjust labels)
-- [ ] 2.1.4 Create `kynex/prod/base/kustomization.yaml`
+- [x] 2.1.1 Create `kynex/prod/base/` folder
+- [x] 2.1.2 Create `kynex/prod/base/applicationset.yaml` (copy from nonprod, adjust labels)
+- [x] 2.1.3 Create `kynex/prod/base/appproject.yaml` (copy from nonprod, adjust labels)
+- [x] 2.1.4 Create `kynex/prod/base/kustomization.yaml`
 
 ### 2.2 Create Kynex Prod Preprod Overlay
-- [ ] 2.2.1 Create `kynex/prod/preprod/argocd/` folder
-- [ ] 2.2.2 Create `kynex/prod/preprod/argocd/kustomization.yaml` with replacements
-- [ ] 2.2.3 Configure cluster name: `spoke1.us-east-1.eksctl.io`
-- [ ] 2.2.4 Configure namespace: `preprod`
-- [ ] 2.2.5 Test Kustomize build locally
+- [x] 2.2.1 Create `kynex/prod/preprod/argocd/` folder
+- [x] 2.2.2 Create `kynex/prod/preprod/argocd/kustomization.yaml` with replacements
+- [x] 2.2.3 Configure cluster name: `spoke1.us-east-1.eksctl.io`
+- [x] 2.2.4 Configure namespace: `preprod`
+- [x] 2.2.5 Test Kustomize build locally
 
 ### 2.3 Create Kynex Prod Prod Overlay
-- [ ] 2.3.1 Create `kynex/prod/prod/argocd/` folder
-- [ ] 2.3.2 Create `kynex/prod/prod/argocd/kustomization.yaml` with replacements
-- [ ] 2.3.3 Configure cluster name: `spoke1.us-east-1.eksctl.io`
-- [ ] 2.3.4 Configure namespace: `prod`
-- [ ] 2.3.5 Test Kustomize build locally
+- [x] 2.3.1 Create `kynex/prod/prod/argocd/` folder
+- [x] 2.3.2 Create `kynex/prod/prod/argocd/kustomization.yaml` with replacements
+- [x] 2.3.3 Configure cluster name: `spoke1.us-east-1.eksctl.io`
+- [x] 2.3.4 Configure namespace: `prod`
+- [x] 2.3.5 Test Kustomize build locally
 
 ### 2.4 Test Kynex Prod Bootstrap
 - [ ] 2.4.1 Apply `bootstrap/kynex-prod-bootstrap.yaml` to hub cluster
