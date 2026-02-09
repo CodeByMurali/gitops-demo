@@ -38,7 +38,7 @@ patches:
       value: spoke1.us-east-1.eksctl.io
     - op: replace
       path: /spec/template/spec/destination/namespace
-      value: prod
+      value: ocbc-prod
     - op: replace
       path: /spec/generators/0/git/directories/0/path
       value: argocd/apps/*/envs/prod
@@ -63,7 +63,7 @@ patches:
       value: spoke1.us-east-1.eksctl.io
     - op: replace
       path: /spec/destinations/0/namespace
-      value: prod
+      value: ocbc-prod
     - op: add
       path: /metadata/annotations
       value:
