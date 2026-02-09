@@ -15,8 +15,6 @@ spec:
       repoURL: https://github.com/CodeByMurali/gitops-demo.git
       revision: scalable
       directories:
-      - path: kynex/nonprod/*/argocd
-        exclude: true
       - path: kynex/nonprod/dev/argocd
       - path: kynex/nonprod/sit/argocd
   template:
