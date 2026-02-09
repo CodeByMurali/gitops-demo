@@ -1,0 +1,70 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- ../../../base
+
+commonLabels:
+  tenant: jefferies
+  environment: prod
+
+patches:
+- target:
+    kind: ApplicationSet
+  patch: |-
+    - op: replace
+      path: /metadata/name
+      value: jefferies-prod
+    - op: replace
+      path: /metadata/labels/tenant
+      value: jefferies
+    - op: replace
+      path: /metadata/labels/environment
+      value: prod
+    - op: replace
+      path: /spec/template/metadata/labels/tenant
+      value: jefferies
+    - op: replace
+      path: /spec/template/metadata/labels/environment
+      value: prod
+    - op: replace
+      path: /spec/template/metadata/name
+      value: jefferies-{{index .path.segments 2}}-prod
+    - op: replace
+      path: /spec/template/spec/project
+      value: jefferies-prod
+    - op: replace
+      path: /spec/template/spec/destination/name
+      value: spoke1.us-east-1.eksctl.io
+    - op: replace
+      path: /spec/template/spec/destination/namespace
+      value: prod
+    - op: replace
+      path: /spec/generators/0/git/directories/0/path
+      value: argocd/apps/*/envs/prod
+
+- target:
+    kind: AppProject
+  patch: |-
+    - op: replace
+      path: /metadata/name
+      value: jefferies-prod
+    - op: replace
+      path: /metadata/labels/tenant
+      value: jefferies
+    - op: replace
+      path: /metadata/labels/environment
+      value: prod
+    - op: replace
+      path: /spec/description
+      value: "OneView jefferies prod environment"
+    - op: replace
+      path: /spec/destinations/0/name
+      value: spoke1.us-east-1.eksctl.io
+    - op: replace
+      path: /spec/destinations/0/namespace
+      value: prod
+    - op: add
+      path: /metadata/annotations
+      value:
+        aws-account-id: "123456789012"

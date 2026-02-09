@@ -125,24 +125,24 @@ Implementation tasks for transforming the gitops-demo repository into a producti
 ## Phase 4: OneView Prod
 
 ### 4.1 Create OneView Prod Base
-- [ ] 4.1.1 Create `oneview/prod/base/` folder
-- [ ] 4.1.2 Create `oneview/prod/base/applicationset.yaml`
-- [ ] 4.1.3 Create `oneview/prod/base/appproject.yaml`
-- [ ] 4.1.4 Create `oneview/prod/base/kustomization.yaml`
+- [x] 4.1.1 Create `oneview/prod/base/` folder
+- [x] 4.1.2 Create `oneview/prod/base/applicationset.yaml`
+- [x] 4.1.3 Create `oneview/prod/base/appproject.yaml`
+- [x] 4.1.4 Create `oneview/prod/base/kustomization.yaml`
 
 ### 4.2 Create Jefferies Prod Overlays
-- [ ] 4.2.1 Create `oneview/prod/jefferies/preprod/argocd/kustomization.yaml`
-- [ ] 4.2.2 Configure cluster: `spoke1.us-east-1.eksctl.io`, namespace: `preprod`
-- [ ] 4.2.3 Create `oneview/prod/jefferies/prod/argocd/kustomization.yaml`
-- [ ] 4.2.4 Configure cluster: `spoke1.us-east-1.eksctl.io`, namespace: `prod`
-- [ ] 4.2.5 Add AWS account ID annotation
+- [x] 4.2.1 Create `oneview/prod/jefferies/preprod/argocd/kustomization.yaml`
+- [x] 4.2.2 Configure cluster: `spoke1.us-east-1.eksctl.io`, namespace: `preprod`
+- [x] 4.2.3 Create `oneview/prod/jefferies/prod/argocd/kustomization.yaml`
+- [x] 4.2.4 Configure cluster: `spoke1.us-east-1.eksctl.io`, namespace: `prod`
+- [x] 4.2.5 Add AWS account ID annotation
 
 ### 4.3 Create OCBC Prod Overlays
-- [ ] 4.3.1 Create `oneview/prod/ocbc/preprod/argocd/kustomization.yaml`
-- [ ] 4.3.2 Configure cluster: `spoke1.us-east-1.eksctl.io`, namespace: `preprod`
-- [ ] 4.3.3 Create `oneview/prod/ocbc/prod/argocd/kustomization.yaml`
-- [ ] 4.3.4 Configure cluster: `spoke1.us-east-1.eksctl.io`, namespace: `prod`
-- [ ] 4.3.5 Add AWS account ID annotation
+- [x] 4.3.1 Create `oneview/prod/ocbc/preprod/argocd/kustomization.yaml`
+- [x] 4.3.2 Configure cluster: `spoke1.us-east-1.eksctl.io`, namespace: `preprod`
+- [x] 4.3.3 Create `oneview/prod/ocbc/prod/argocd/kustomization.yaml`
+- [x] 4.3.4 Configure cluster: `spoke1.us-east-1.eksctl.io`, namespace: `prod`
+- [x] 4.3.5 Add AWS account ID annotation
 
 ### 4.4 Test OneView Prod Bootstrap
 - [ ] 4.4.1 Apply `bootstrap/oneview-prod-bootstrap.yaml` to hub cluster
@@ -154,32 +154,32 @@ Implementation tasks for transforming the gitops-demo repository into a producti
 ## Phase 5: Platform Services
 
 ### 5.1 Create Kynex Nonprod Platform Service
-- [ ] 5.1.1 Create `kynex/nonprod/platform/nginx-ingress/argocd/` folder
-- [ ] 5.1.2 Create `nginx-ingress-app.yaml` (Argo CD Application)
-- [ ] 5.1.3 Configure Helm chart: `ingress-nginx` version 4.8.3
-- [ ] 5.1.4 Configure destination: spoke2 cluster, `ingress-nginx` namespace
-- [ ] 5.1.5 Create `kustomization.yaml`
+- [x] 5.1.1 Create `kynex/nonprod/platform/nginx-ingress/argocd/` folder
+- [x] 5.1.2 Create `nginx-ingress-app.yaml` (Argo CD Application)
+- [x] 5.1.3 Configure Helm chart: `ingress-nginx` version 4.8.3
+- [x] 5.1.4 Configure destination: spoke2 cluster, `ingress-nginx` namespace
+- [x] 5.1.5 Create `kustomization.yaml`
 - [ ] 5.1.6 Test deployment
 
 ### 5.2 Create Kynex Prod Platform Service
-- [ ] 5.2.1 Create `kynex/prod/platform/nginx-ingress/argocd/` folder
-- [ ] 5.2.2 Create `nginx-ingress-app.yaml`
-- [ ] 5.2.3 Configure destination: spoke1 cluster
-- [ ] 5.2.4 Create `kustomization.yaml`
+- [x] 5.2.1 Create `kynex/prod/platform/nginx-ingress/argocd/` folder
+- [x] 5.2.2 Create `nginx-ingress-app.yaml`
+- [x] 5.2.3 Configure destination: spoke1 cluster
+- [x] 5.2.4 Create `kustomization.yaml`
 - [ ] 5.2.5 Test deployment
 
 ### 5.3 Create OneView Nonprod Platform Service
-- [ ] 5.3.1 Create `oneview/nonprod/platform/nginx-ingress/argocd/` folder
-- [ ] 5.3.2 Create `nginx-ingress-app.yaml`
-- [ ] 5.3.3 Configure destination: spoke2 cluster
-- [ ] 5.3.4 Create `kustomization.yaml`
+- [x] 5.3.1 Create `oneview/nonprod/platform/nginx-ingress/argocd/` folder
+- [x] 5.3.2 Create `nginx-ingress-app.yaml`
+- [x] 5.3.3 Configure destination: spoke2 cluster
+- [x] 5.3.4 Create `kustomization.yaml`
 - [ ] 5.3.5 Test deployment
 
 ### 5.4 Create OneView Prod Platform Service
-- [ ] 5.4.1 Create `oneview/prod/platform/nginx-ingress/argocd/` folder
-- [ ] 5.4.2 Create `nginx-ingress-app.yaml`
-- [ ] 5.4.3 Configure destination: spoke1 cluster
-- [ ] 5.4.4 Create `kustomization.yaml`
+- [x] 5.4.1 Create `oneview/prod/platform/nginx-ingress/argocd/` folder
+- [x] 5.4.2 Create `nginx-ingress-app.yaml`
+- [x] 5.4.3 Configure destination: spoke1 cluster
+- [x] 5.4.4 Create `kustomization.yaml`
 - [ ] 5.4.5 Test deployment
 
 ---

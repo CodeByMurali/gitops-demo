@@ -1,0 +1,70 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- ../../../base
+
+commonLabels:
+  tenant: ocbc
+  environment: prod
+
+patches:
+- target:
+    kind: ApplicationSet
+  patch: |-
+    - op: replace
+      path: /metadata/name
+      value: ocbc-prod
+    - op: replace
+      path: /metadata/labels/tenant
+      value: ocbc
+    - op: replace
+      path: /metadata/labels/environment
+      value: prod
+    - op: replace
+      path: /spec/template/metadata/labels/tenant
+      value: ocbc
+    - op: replace
+      path: /spec/template/metadata/labels/environment
+      value: prod
+    - op: replace
+      path: /spec/template/metadata/name
+      value: ocbc-{{index .path.segments 2}}-prod
+    - op: replace
+      path: /spec/template/spec/project
+      value: ocbc-prod
+    - op: replace
+      path: /spec/template/spec/destination/name
+      value: spoke1.us-east-1.eksctl.io
+    - op: replace
+      path: /spec/template/spec/destination/namespace
+      value: prod
+    - op: replace
+      path: /spec/generators/0/git/directories/0/path
+      value: argocd/apps/*/envs/prod
+
+- target:
+    kind: AppProject
+  patch: |-
+    - op: replace
+      path: /metadata/name
+      value: ocbc-prod
+    - op: replace
+      path: /metadata/labels/tenant
+      value: ocbc
+    - op: replace
+      path: /metadata/labels/environment
+      value: prod
+    - op: replace
+      path: /spec/description
+      value: "OneView ocbc prod environment"
+    - op: replace
+      path: /spec/destinations/0/name
+      value: spoke1.us-east-1.eksctl.io
+    - op: replace
+      path: /spec/destinations/0/namespace
+      value: prod
+    - op: add
+      path: /metadata/annotations
+      value:
+        aws-account-id: "987654321098"
