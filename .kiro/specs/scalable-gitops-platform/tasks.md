@@ -146,8 +146,8 @@ Implementation tasks for transforming the gitops-demo repository into a producti
 
 ### 4.4 Test OneView Prod Bootstrap
 - [x] 4.4.1 Apply `bootstrap/oneview-prod-bootstrap.yaml` to hub cluster
-- [ ] 4.4.2 Verify all ApplicationSets are created
-- [ ] 4.4.3 Verify services are deployed to spoke1 cluster
+- [x] 4.4.2 Verify all ApplicationSets are created
+- [x] 4.4.3 Verify services are deployed to spoke1 cluster
 
 ---
 
@@ -159,60 +159,60 @@ Implementation tasks for transforming the gitops-demo repository into a producti
 - [x] 5.1.3 Configure Helm chart: `ingress-nginx` version 4.8.3
 - [x] 5.1.4 Configure destination: spoke2 cluster, `ingress-nginx` namespace
 - [x] 5.1.5 Create `kustomization.yaml`
-- [ ] 5.1.6 Test deployment
+- [x] 5.1.6 Test deployment
 
 ### 5.2 Create Kynex Prod Platform Service
 - [x] 5.2.1 Create `kynex/prod/platform/nginx-ingress/argocd/` folder
 - [x] 5.2.2 Create `nginx-ingress-app.yaml`
 - [x] 5.2.3 Configure destination: spoke1 cluster
 - [x] 5.2.4 Create `kustomization.yaml`
-- [ ] 5.2.5 Test deployment
+- [x] 5.2.5 Test deployment
 
 ### 5.3 Create OneView Nonprod Platform Service
 - [x] 5.3.1 Create `oneview/nonprod/platform/nginx-ingress/argocd/` folder
 - [x] 5.3.2 Create `nginx-ingress-app.yaml`
 - [x] 5.3.3 Configure destination: spoke2 cluster
 - [x] 5.3.4 Create `kustomization.yaml`
-- [ ] 5.3.5 Test deployment
+- [x] 5.3.5 Test deployment
 
 ### 5.4 Create OneView Prod Platform Service
 - [x] 5.4.1 Create `oneview/prod/platform/nginx-ingress/argocd/` folder
 - [x] 5.4.2 Create `nginx-ingress-app.yaml`
 - [x] 5.4.3 Configure destination: spoke1 cluster
 - [x] 5.4.4 Create `kustomization.yaml`
-- [ ] 5.4.5 Test deployment
+- [x] 5.4.5 Test deployment
 
 ---
 
 ## Phase 6: Documentation
 
 ### 6.1 Create Main README
-- [ ] 6.1.1 Document repository structure
-- [ ] 6.1.2 Explain 3-layer architecture (Bootstrap → ApplicationSets → Applications)
-- [ ] 6.1.3 Document Kustomize base/overlay pattern
-- [ ] 6.1.4 Provide quick start guide
-- [ ] 6.1.5 Include cluster information (hub, spoke1, spoke2)
+- [x] 6.1.1 Document repository structure
+- [x] 6.1.2 Explain 3-layer architecture (Bootstrap → ApplicationSets → Applications)
+- [x] 6.1.3 Document Kustomize base/overlay pattern
+- [x] 6.1.4 Provide quick start guide
+- [x] 6.1.5 Include cluster information (hub, spoke1, spoke2)
 
 ### 6.2 Create Kustomize Replacements Guide
-- [ ] 6.2.1 Create `docs/kustomize-replacements.md`
-- [ ] 6.2.2 Explain how replacements work
-- [ ] 6.2.3 Document all supported replacement fields
-- [ ] 6.2.4 Provide examples for each field
-- [ ] 6.2.5 Show how to test locally with `kubectl kustomize`
+- [x] 6.2.1 Create `docs/kustomize-replacements.md`
+- [x] 6.2.2 Explain how replacements work
+- [x] 6.2.3 Document all supported replacement fields
+- [x] 6.2.4 Provide examples for each field
+- [x] 6.2.5 Show how to test locally with `kubectl kustomize`
 
 ### 6.3 Create Tenant Onboarding Guide
-- [ ] 6.3.1 Create `docs/onboarding-tenant.md`
-- [ ] 6.3.2 Step-by-step instructions for adding new tenant
-- [ ] 6.3.3 Include folder structure to create
-- [ ] 6.3.4 Include kustomization.yaml template
-- [ ] 6.3.5 Include verification steps
+- [x] 6.3.1 Create `docs/onboarding-tenant.md`
+- [x] 6.3.2 Step-by-step instructions for adding new tenant
+- [x] 6.3.3 Include folder structure to create
+- [x] 6.3.4 Include kustomization.yaml template
+- [x] 6.3.5 Include verification steps
 
 ### 6.4 Create Service Onboarding Guide
-- [ ] 6.4.1 Create `docs/onboarding-service.md`
-- [ ] 6.4.2 Explain CDUsingArgoCD repository structure
-- [ ] 6.4.3 Show how to create base manifests
-- [ ] 6.4.4 Show how to create environment overlays
-- [ ] 6.4.5 Explain automatic discovery process
+- [x] 6.4.1 Create `docs/onboarding-service.md`
+- [x] 6.4.2 Explain CDUsingArgoCD repository structure
+- [x] 6.4.3 Show how to create base manifests
+- [x] 6.4.4 Show how to create environment overlays
+- [x] 6.4.5 Explain automatic discovery process
 
 ---
 
@@ -220,10 +220,10 @@ Implementation tasks for transforming the gitops-demo repository into a producti
 
 ### 7.1 End-to-End Testing
 - [ ] 7.1.1 Test bootstrap on fresh cluster
-- [ ] 7.1.2 Verify all ApplicationSets are created
-- [ ] 7.1.3 Verify all AppProjects are created
-- [ ] 7.1.4 Verify all services are discovered and deployed
-- [ ] 7.1.5 Verify platform services (nginx-ingress) are deployed
+- [x] 7.1.2 Verify all ApplicationSets are created
+- [x] 7.1.3 Verify all AppProjects are created
+- [x] 7.1.4 Verify all services are discovered and deployed
+- [x] 7.1.5 Verify platform services (nginx-ingress) are deployed
 
 ### 7.2 Workflow Testing
 - [ ] 7.2.1 Test adding new microservice to CDUsingArgoCD
@@ -234,10 +234,10 @@ Implementation tasks for transforming the gitops-demo repository into a producti
 - [ ] 7.2.6 Verify tenant isolation
 
 ### 7.3 Security Validation
-- [ ] 7.3.1 Verify AppProjects have restricted permissions
-- [ ] 7.3.2 Verify no cluster-wide resources allowed
-- [ ] 7.3.3 Verify prod/nonprod isolation
-- [ ] 7.3.4 Verify tenant isolation in OneView
+- [x] 7.3.1 Verify AppProjects have restricted permissions
+- [x] 7.3.2 Verify no cluster-wide resources allowed
+- [x] 7.3.3 Verify prod/nonprod isolation
+- [x] 7.3.4 Verify tenant isolation in OneView
 
 ### 7.4 Duplication Analysis
 - [ ] 7.4.1 Count lines of code in bases
