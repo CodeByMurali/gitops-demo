@@ -243,8 +243,9 @@ Used by Kynex (pooled multi-tenant):
 
 ### Pattern 2: Tenant-Prefixed Namespace
 Used by OneView (siloed per-tenant):
-- Namespace: `jefferies-dev`, `ocbc-prod`
-- ApplicationSet: `jefferies-dev`, `ocbc-prod`
+- Namespace: `jefferies-dev`, `jefferies-prod`, `ocbc-dev`, `ocbc-prod`
+- ApplicationSet: `jefferies-dev`, `jefferies-prod`, `ocbc-dev`, `ocbc-prod`
+- Eliminates resource conflicts between tenants
 
 ### Pattern 3: Application Naming
 - Kynex: `kynex-{service}-{environment}`

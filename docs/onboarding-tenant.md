@@ -353,12 +353,18 @@ kubectl get pods -n hsbc-prod --context <spoke1-context>
 
 ### Namespace Naming Convention
 
-OneView uses tenant-prefixed namespaces for isolation:
+OneView uses tenant-prefixed namespaces for complete isolation:
 - POC: `{tenant}-poc` (e.g., `hsbc-poc`)
 - Dev: `{tenant}-dev` (e.g., `hsbc-dev`)
 - SIT: `{tenant}-sit` (e.g., `hsbc-sit`)
 - Preprod: `{tenant}-preprod` (e.g., `hsbc-preprod`)
 - Prod: `{tenant}-prod` (e.g., `hsbc-prod`)
+
+This naming convention:
+- Prevents resource conflicts between tenants
+- Eliminates SharedResourceWarnings in Argo CD
+- Enables tenant-specific resource quotas and network policies
+- Provides clear visibility of resource ownership
 
 ## Troubleshooting
 

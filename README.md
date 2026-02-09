@@ -88,11 +88,14 @@ gitops-demo/
 **Kynex (Pooled Multi-Tenant)**:
 - Simple namespace names: `dev`, `sit`, `preprod`, `prod`
 - All services share the same namespace per environment
+- Cost-efficient for internal services
 
 **OneView (Siloed Per-Tenant)**:
 - Tenant-specific namespaces: `{tenant}-{environment}`
-- Examples: `jefferies-dev`, `ocbc-prod`
+- Examples: `jefferies-dev`, `jefferies-prod`, `ocbc-dev`, `ocbc-prod`
 - Complete isolation between tenants
+- Eliminates SharedResourceWarnings
+- Enables tenant-specific resource quotas and policies
 
 ## Quick Start
 
@@ -167,8 +170,9 @@ AppProjects enforce least-privilege access:
 - Specific resource types whitelisted
 
 ### 5. Multi-Tenant Support
-- **Kynex**: Pooled multi-tenant model
+- **Kynex**: Pooled multi-tenant model (shared namespaces)
 - **OneView**: Siloed per-tenant model with dedicated namespaces
+- Tenant-specific namespaces prevent resource conflicts and SharedResourceWarnings
 
 ## Workflows
 
