@@ -18,7 +18,9 @@ spec:
   - namespace: 'PLACEHOLDER_NAMESPACE'
     name: PLACEHOLDER_CLUSTER
   
-  clusterResourceWhitelist: []
+  clusterResourceWhitelist:
+  - group: ''
+    kind: Namespace
   
   namespaceResourceWhitelist:
   - group: ''

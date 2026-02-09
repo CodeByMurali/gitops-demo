@@ -15,8 +15,11 @@ spec:
       repoURL: https://github.com/CodeByMurali/gitops-demo.git
       revision: scalable
       directories:
-      - path: oneview/nonprod/*/*/argocd
-      - path: oneview/nonprod/platform/*/argocd
+      - path: oneview/nonprod/jefferies/poc/argocd
+      - path: oneview/nonprod/jefferies/dev/argocd
+      - path: oneview/nonprod/jefferies/sit/argocd
+      - path: oneview/nonprod/ocbc/dev/argocd
+      - path: oneview/nonprod/ocbc/sit/argocd
   template:
     metadata:
       name: 'bootstrap-{{index .path.segments 0}}-{{index .path.segments 1}}-{{index .path.segments 2}}-{{index .path.segments 3}}'

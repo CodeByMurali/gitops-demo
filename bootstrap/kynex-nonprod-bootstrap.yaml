@@ -16,7 +16,9 @@ spec:
       revision: scalable
       directories:
       - path: kynex/nonprod/*/argocd
-      - path: kynex/nonprod/platform/*/argocd
+        exclude: true
+      - path: kynex/nonprod/dev/argocd
+      - path: kynex/nonprod/sit/argocd
   template:
     metadata:
       name: 'bootstrap-{{index .path.segments 0}}-{{index .path.segments 1}}-{{index .path.segments 2}}'
