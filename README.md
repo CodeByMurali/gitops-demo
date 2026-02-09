@@ -1,29 +1,192 @@
-# How to structure your Argo CD repositories using Application Sets
+# Scalable GitOps Platform
 
-This is an exaple repository for Organizing your applications with Argo CD.
+Production-grade GitOps platform using Argo CD ApplicationSets and Kustomize for automated service deployment across multiple clusters and tenants.
 
-## Best practice - Use the three level structure
+## Architecture Overview
 
-The starting point should be a 3 level structure as shown in the image below
+This platform implements a 3-layer architecture for scalable, automated GitOps deployments:
 
-![structure](docs/hierarchy-of-manifests.png)
+```
+Layer 1: Bootstrap ApplicationSets (4 total)
+  ├── Kynex Nonprod Bootstrap
+  ├── Kynex Prod Bootstrap
+  ├── OneView Nonprod Bootstrap
+  └── OneView Prod Bootstrap
 
-At the lowest level we have the Kubernetes manifests that define how the application runs (category 1 of manifests). These are your Kustomize or Helm templates and they are completely self-contained, meaning that they can be deployed on their own on any cluster even without Argo CD. We have covered in detail the structure of these files in the promotion blog post. 
+Layer 2: Environment ApplicationSets & AppProjects (auto-discovered)
+  ├── kynex-dev, kynex-sit (nonprod)
+  ├── kynex-preprod, kynex-prod (prod)
+  ├── jefferies-poc, jefferies-dev, jefferies-sit (nonprod)
+  ├── jefferies-preprod, jefferies-prod (prod)
+  └── ocbc-dev, ocbc-sit, ocbc-preprod, ocbc-prod
 
-One level above, we have the Application Set as explained in the previous section. These wrap the main Kubernetes manifests into Argo CD applications (category 2 of manifests). Notice that in most cases you only need ApplicationSets and not individual Application CRDs.
+Layer 3: Service Applications (auto-discovered)
+  └── Automatically discovered from CDUsingArgoCD repository
+```
 
-Last, as an optional component you can group all your application sets in an App-of-App that will help you bootstrap a completely empty cluster with all apps. This level might not be needed if you have a different way of creating clusters (i.e. with terraform/pulumi/crossplane) and this is why it is not really essential.
+## Repository Structure
 
-And that’s it!
+```
+gitops-demo/
+├── bootstrap/                          # Layer 1: Bootstrap ApplicationSets
+│   ├── kynex-nonprod-bootstrap.yaml
+│   ├── kynex-prod-bootstrap.yaml
+│   ├── oneview-nonprod-bootstrap.yaml
+│   └── oneview-prod-bootstrap.yaml
+│
+├── kynex/                              # Kynex deployment model (pooled multi-tenant)
+│   ├── nonprod/
+│   │   ├── argocd/
+│   │   │   ├── base/                   # Base templates for ApplicationSets & AppProjects
+│   │   │   │   ├── applicationset.yaml
+│   │   │   │   ├── appproject.yaml
+│   │   │   │   └── kustomization.yaml
+│   │   │   └── platform/               # Platform services (nginx-ingress)
+│   │   │       └── nginx-ingress-app.yaml
+│   │   ├── dev/argocd/                 # Dev environment overlay
+│   │   │   └── kustomization.yaml
+│   │   └── sit/argocd/                 # SIT environment overlay
+│   │       └── kustomization.yaml
+│   └── prod/
+│       ├── argocd/base/
+│       ├── argocd/platform/
+│       ├── preprod/argocd/
+│       └── prod/argocd/
+│
+└── oneview/                            # OneView deployment model (siloed per-tenant)
+    ├── nonprod/
+    │   ├── argocd/base/
+    │   ├── argocd/platform/
+    │   ├── jefferies/
+    │   │   ├── poc/argocd/
+    │   │   ├── dev/argocd/
+    │   │   └── sit/argocd/
+    │   └── ocbc/
+    │       ├── dev/argocd/
+    │       └── sit/argocd/
+    └── prod/
+        ├── argocd/base/
+        ├── argocd/platform/
+        ├── jefferies/
+        │   ├── preprod/argocd/
+        │   └── prod/argocd/
+        └── ocbc/
+            ├── preprod/argocd/
+            └── prod/argocd/
+```
 
-Notice how simple this pattern is:
+## Cluster Configuration
 
-There are only 3 levels of abstraction. We have seen companies that have 4 or 5 making the mental model much more complex
-Each level is completely independent of everything else. You can install the Kubernetes manifests on their own, or you can pick a specific application set or you can pick everything at the root. But it is your choice.
-Helm and Kustomize are only used once at the Kubernetes manifests and nowhere else. This makes the templating system super easy to understand
+| Cluster | Role | Deployment Models | Environments |
+|---------|------|-------------------|--------------|
+| **hub** | Argo CD Control Plane | N/A | Argo CD installed here |
+| **spoke1** | Prod Realm | Kynex, OneView | preprod, prod |
+| **spoke2** | Nonprod Realm | Kynex, OneView | poc, dev, sit |
 
-![folders](docs/levels.png)
+### Namespace Strategy
 
-Read the full blog post at https://codefresh.io/blog/how-to-structure-your-argo-cd-repositories-using-application-sets/
+**Kynex (Pooled Multi-Tenant)**:
+- Simple namespace names: `dev`, `sit`, `preprod`, `prod`
+- All services share the same namespace per environment
 
+**OneView (Siloed Per-Tenant)**:
+- Tenant-specific namespaces: `{tenant}-{environment}`
+- Examples: `jefferies-dev`, `ocbc-prod`
+- Complete isolation between tenants
 
+## Quick Start
+
+### Prerequisites
+- kubectl configured with access to hub, spoke1, spoke2 clusters
+- Argo CD CLI installed
+- Git access to gitops-demo and CDUsingArgoCD repositories
+
+### Deploy Platform
+
+1. **Install Argo CD on hub cluster**:
+```bash
+kubectl config use-context <hub-cluster-context>
+kubectl create namespace argocd
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+```
+
+2. **Register spoke clusters**:
+```bash
+argocd cluster add <spoke1-context> --name spoke1.us-east-1.eksctl.io
+argocd cluster add <spoke2-context> --name spoke2.us-east-1.eksctl.io
+```
+
+3. **Deploy bootstrap ApplicationSets**:
+```bash
+kubectl apply -f bootstrap/kynex-nonprod-bootstrap.yaml
+kubectl apply -f bootstrap/kynex-prod-bootstrap.yaml
+kubectl apply -f bootstrap/oneview-nonprod-bootstrap.yaml
+kubectl apply -f bootstrap/oneview-prod-bootstrap.yaml
+```
+
+4. **Deploy platform services**:
+```bash
+kubectl apply -k kynex/nonprod/argocd/platform/
+kubectl apply -k kynex/prod/argocd/platform/
+kubectl apply -k oneview/nonprod/argocd/platform/
+kubectl apply -k oneview/prod/argocd/platform/
+```
+
+5. **Verify deployment**:
+```bash
+# Check ApplicationSets
+kubectl get applicationsets -n argocd
+
+# Check Applications
+argocd app list
+
+# Check services on spoke clusters
+kubectl get pods -n dev --context <spoke2-context>
+kubectl get pods -n prod --context <spoke1-context>
+```
+
+## Key Features
+
+### 1. Automatic Service Discovery
+Services are automatically discovered from the CDUsingArgoCD repository. No manual ApplicationSet updates required.
+
+### 2. DRY Principle
+- Base templates defined once at realm level
+- Environment overlays use Kustomize patches
+- Minimal duplication (<10%)
+
+### 3. Blast Radius Control
+- Changes isolated by realm (nonprod/prod)
+- Changes isolated by tenant (Kynex/Jefferies/OCBC)
+- Changes isolated by environment (dev/sit/preprod/prod)
+
+### 4. Restricted Permissions
+AppProjects enforce least-privilege access:
+- No cluster-wide resources allowed
+- Only namespace-scoped resources permitted
+- Specific resource types whitelisted
+
+### 5. Multi-Tenant Support
+- **Kynex**: Pooled multi-tenant model
+- **OneView**: Siloed per-tenant model with dedicated namespaces
+
+## Workflows
+
+### Adding a New Service
+See [docs/onboarding-service.md](docs/onboarding-service.md)
+
+### Adding a New Tenant
+See [docs/onboarding-tenant.md](docs/onboarding-tenant.md)
+
+### Making Platform-Wide Changes
+Edit the base templates in `{deployment-model}/{realm}/argocd/base/` and commit. Changes automatically propagate to all environments.
+
+## Documentation
+
+- [Kustomize Replacements Guide](docs/kustomize-replacements.md)
+- [Tenant Onboarding Guide](docs/onboarding-tenant.md)
+- [Service Onboarding Guide](docs/onboarding-service.md)
+
+## Support
+
+For issues or questions, refer to the design document at `.kiro/specs/scalable-gitops-platform/design.md`

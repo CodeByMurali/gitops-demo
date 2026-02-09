@@ -78,10 +78,10 @@ Implementation tasks for transforming the gitops-demo repository into a producti
 
 ### 2.4 Test Kynex Prod Bootstrap
 - [x] 2.4.1 Apply `bootstrap/kynex-prod-bootstrap.yaml` to hub cluster
-- [ ] 2.4.2 Verify bootstrap ApplicationSet is created
-- [ ] 2.4.3 Verify ApplicationSets `kynex-preprod` and `kynex-prod` are created
-- [ ] 2.4.4 Verify AppProjects are created with restricted permissions
-- [ ] 2.4.5 Verify services are deployed to spoke1 cluster
+- [x] 2.4.2 Verify bootstrap ApplicationSet is created
+- [x] 2.4.3 Verify ApplicationSets `kynex-preprod` and `kynex-prod` are created
+- [x] 2.4.4 Verify AppProjects are created with restricted permissions
+- [x] 2.4.5 Verify services are deployed to spoke1 cluster
 
 ---
 
@@ -114,11 +114,11 @@ Implementation tasks for transforming the gitops-demo repository into a producti
 - [x] 3.4.5 Add AWS account ID annotation to all OCBC overlays
 
 ### 3.5 Test OneView Nonprod Bootstrap
-- [ ] 3.5.1 Apply `bootstrap/oneview-nonprod-bootstrap.yaml` to hub cluster
-- [ ] 3.5.2 Verify ApplicationSets for Jefferies (poc, dev, sit) are created
-- [ ] 3.5.3 Verify ApplicationSets for OCBC (dev, sit) are created
-- [ ] 3.5.4 Verify AppProjects have correct permissions and AWS account annotations
-- [ ] 3.5.5 Verify services are deployed to spoke2 cluster in correct namespaces
+- [x] 3.5.1 Apply `bootstrap/oneview-nonprod-bootstrap.yaml` to hub cluster
+- [x] 3.5.2 Verify ApplicationSets for Jefferies (poc, dev, sit) are created
+- [x] 3.5.3 Verify ApplicationSets for OCBC (dev, sit) are created
+- [x] 3.5.4 Verify AppProjects have correct permissions and AWS account annotations
+- [x] 3.5.5 Verify services are deployed to spoke2 cluster in correct namespaces
 
 ---
 
@@ -145,7 +145,7 @@ Implementation tasks for transforming the gitops-demo repository into a producti
 - [x] 4.3.5 Add AWS account ID annotation
 
 ### 4.4 Test OneView Prod Bootstrap
-- [ ] 4.4.1 Apply `bootstrap/oneview-prod-bootstrap.yaml` to hub cluster
+- [x] 4.4.1 Apply `bootstrap/oneview-prod-bootstrap.yaml` to hub cluster
 - [ ] 4.4.2 Verify all ApplicationSets are created
 - [ ] 4.4.3 Verify services are deployed to spoke1 cluster
 
