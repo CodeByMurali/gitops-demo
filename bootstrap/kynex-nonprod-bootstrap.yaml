@@ -15,11 +15,11 @@ spec:
       repoURL: https://github.com/CodeByMurali/gitops-demo.git
       revision: scalable
       directories:
-      - path: kynex/nonprod/dev/argocd
+      - path: kynex/nonprod/dev/argocd # or use kynex/nonprod/*/argocd to create appset for all envs automatically as a new folder is added
       - path: kynex/nonprod/sit/argocd
   template:
     metadata:
-      name: 'bootstrap-{{index .path.segments 0}}-{{index .path.segments 1}}-{{index .path.segments 2}}'
+      name: 'bootstrap-{{index .path.segments 0}}-{{index .path.segments 1}}-{{index .path.segments 2}}' # bootstrap-kynex-nonprod-dev
       labels:
         deployment-model: kynex
         realm: nonprod

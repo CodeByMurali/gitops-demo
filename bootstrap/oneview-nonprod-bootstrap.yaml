@@ -14,6 +14,8 @@ spec:
   - git:
       repoURL: https://github.com/CodeByMurali/gitops-demo.git
       revision: scalable
+        # To bootstrap all clients all envs automatically: oneview/nonprod/*/*/argocd
+        # To bootstrap Jefferies all envs automatically: oneview/nonprod/jefferies/*/argocd
       directories:
       - path: oneview/nonprod/jefferies/poc/argocd
       - path: oneview/nonprod/jefferies/dev/argocd

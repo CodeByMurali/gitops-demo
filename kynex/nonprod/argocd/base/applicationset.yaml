@@ -18,9 +18,8 @@ spec:
       - path: argocd/apps/*/envs/PLACEHOLDER_ENVIRONMENT
   template:
     metadata:
-      name: 'kynex-{{index .path.segments 2}}-PLACEHOLDER_ENVIRONMENT'
+      name: 'kynex-{{index .path.segments 2}}-PLACEHOLDER_ENVIRONMENT' # kynex-trade-dev
       labels:
-        deployment-model: kynex
         realm: nonprod
         environment: PLACEHOLDER_ENVIRONMENT
         service: '{{index .path.segments 2}}'

@@ -401,9 +401,9 @@ stringData:
 
 **Note**: In production, use external secret management (e.g., AWS Secrets Manager, HashiCorp Vault).
 
-### Pattern 3: Using Helm Charts
+### Pattern 3: Using Helm Charts from Repository
 
-If your service uses Helm:
+If your service uses Helm from a chart repository:
 
 ```yaml
 # argocd/apps/payment/base/kustomization.yaml
@@ -421,7 +421,156 @@ helmCharts:
 
 Add `buildOptions: "--enable-helm"` to the ApplicationSet in gitops-demo.
 
-### Pattern 4: Multiple Containers
+### Pattern 4: Using Custom Helm Charts (helm create)
+
+For services using custom Helm charts created with `helm create`:
+
+#### Structure:
+```
+CDUsingArgoCD/
+└── argocd/
+    └── apps/
+        └── payment/
+            └── envs/
+                ├── dev/
+                │   ├── Chart.yaml
+                │   ├── values.yaml
+                │   └── templates/
+                │       ├── deployment.yaml
+                │       ├── service.yaml
+                │       └── ingress.yaml
+                ├── sit/
+                │   ├── Chart.yaml
+                │   ├── values.yaml
+                │   └── templates/
+                └── prod/
+                    ├── Chart.yaml
+                    ├── values.yaml
+                    └── templates/
+```
+
+#### Create Helm Chart:
+
+```bash
+# Create chart for dev environment
+cd argocd/apps/payment/envs/dev
+helm create payment
+mv payment/* .
+rmdir payment
+```
+
+#### Chart.yaml:
+```yaml
+apiVersion: v2
+name: payment
+description: Payment service Helm chart
+type: application
+version: 1.0.0
+appVersion: "1.0.0"
+```
+
+#### values.yaml (dev):
+```yaml
+replicaCount: 1
+
+image:
+  repository: myregistry/payment
+  tag: "1.0.0-dev"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 8080
+
+resources:
+  requests:
+    cpu: 50m
+    memory: 64Mi
+  limits:
+    cpu: 200m
+    memory: 256Mi
+
+env:
+  ENVIRONMENT: "dev"
+  LOG_LEVEL: "debug"
+```
+
+#### values.yaml (prod):
+```yaml
+replicaCount: 3
+
+image:
+  repository: myregistry/payment
+  tag: "1.0.0"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 8080
+
+resources:
+  requests:
+    cpu: 200m
+    memory: 256Mi
+  limits:
+    cpu: 1000m
+    memory: 1Gi
+
+env:
+  ENVIRONMENT: "prod"
+  LOG_LEVEL: "warn"
+```
+
+#### templates/deployment.yaml:
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}-deployment
+  labels:
+    app: {{ .Chart.Name }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - containerPort: {{ .Values.service.targetPort }}
+        resources:
+          {{- toYaml .Values.resources | nindent 10 }}
+        env:
+        {{- range $key, $value := .Values.env }}
+        - name: {{ $key }}
+          value: {{ $value | quote }}
+        {{- end }}
+```
+
+#### Test Helm Chart:
+```bash
+# Validate chart
+helm lint argocd/apps/payment/envs/dev/
+
+# Test template rendering
+helm template payment argocd/apps/payment/envs/dev/
+
+# Test with specific values
+helm template payment argocd/apps/payment/envs/prod/
+```
+
+**Note**: ArgoCD automatically detects `Chart.yaml` and uses Helm to render templates. No additional configuration needed in the ApplicationSet.
+
+### Pattern 5: Multiple Containers
 
 ```yaml
 spec:
@@ -438,9 +587,9 @@ spec:
         - containerPort: 9090
 ```
 
-## Environment-Specific Configuration
+## Environment-Specific Configuration (PoC Only)
 
-### Resource Sizing Guidelines
+### Resource Sizing Guidelines (PoC Only)
 
 | Environment | Replicas | CPU Request | Memory Request | CPU Limit | Memory Limit |
 |-------------|----------|-------------|----------------|-----------|--------------|
