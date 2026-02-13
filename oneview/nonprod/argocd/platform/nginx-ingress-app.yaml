@@ -21,7 +21,7 @@ spec:
           service:
             type: LoadBalancer
   destination:
-    name: spoke2.us-east-1.eksctl.io
+    name: spoke-cpe-dev-usw2
     namespace: ingress-nginx
   syncPolicy:
     automated:

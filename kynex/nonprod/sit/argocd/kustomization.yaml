@@ -28,7 +28,7 @@ patches:
       value: kynex-sit
     - op: replace
       path: /spec/template/spec/destination/name
-      value: spoke2.us-east-1.eksctl.io
+      value: spoke-cpe-dev-usw2
     - op: replace
       path: /spec/template/spec/destination/namespace
       value: sit
@@ -50,7 +50,7 @@ patches:
       value: "Kynex sit environment"
     - op: replace
       path: /spec/destinations/0/name
-      value: spoke2.us-east-1.eksctl.io
+      value: spoke-cpe-dev-usw2
     - op: replace
       path: /spec/destinations/0/namespace
       value: sit
