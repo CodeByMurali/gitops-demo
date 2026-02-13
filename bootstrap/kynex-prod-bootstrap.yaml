@@ -15,8 +15,8 @@ spec:
       repoURL: https://github.com/CodeByMurali/gitops-demo.git
       revision: scalable
       directories:
-      - path: kynex/prod/preprod/argocd
-      - path: kynex/prod/prod/argocd
+      - path: kynex/prod/preprod/argocd #points to preprod appset
+      - path: kynex/prod/prod/argocd #points to prod appset
   template:
     metadata:
       name: 'bootstrap-{{index .path.segments 0}}-{{index .path.segments 1}}-{{index .path.segments 2}}'

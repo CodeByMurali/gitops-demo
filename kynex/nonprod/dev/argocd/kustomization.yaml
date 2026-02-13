@@ -2,12 +2,15 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-- ../../argocd/base
+- ../../argocd/base # Base template exist here
 
 commonLabels:
   environment: dev
 
-patches:
+# Line 32 - Cluster destination
+# Line 35 - Namespace destination
+# Line 38 - important - application repository micro service path 
+patches: # Patch the base template to create dev env
 - target:
     kind: ApplicationSet
   patch: |-

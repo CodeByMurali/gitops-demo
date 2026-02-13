@@ -1,5 +1,5 @@
 apiVersion: argoproj.io/v1alpha1
-kind: ApplicationSet
+kind: ApplicationSet # Manifest type
 metadata:
   name: PLACEHOLDER_NAME
   namespace: argocd
@@ -27,11 +27,11 @@ spec:
       project: PLACEHOLDER_PROJECT
       source:
         repoURL: https://github.com/CodeByMurali/CDUsingArgoCD.git
-        targetRevision: scalable
-        path: '{{.path.path}}'
+        targetRevision: scalable # refers to branch name in application repo
+        path: '{{.path.path}}'  # refers to folder structure in application repo
       destination:
-        name: PLACEHOLDER_CLUSTER
-        namespace: PLACEHOLDER_NAMESPACE
+        name: PLACEHOLDER_CLUSTER # refers to EKS cluster name
+        namespace: PLACEHOLDER_NAMESPACE # refers to namespace in the cluster
       syncPolicy:
         automated:
           prune: true
